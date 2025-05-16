@@ -25,3 +25,66 @@ This project implements a Retrieval Augmented Generation (RAG) system that allow
 * **Environment Configuration**: Securely manages API keys and URLs using a `.env` file.
 
 ## System Architecture (Conceptual)
+
+## Technologies Used
+
+* **Python**: Core programming language.
+* **FastAPI**: Modern, fast (high-performance) web framework for building APIs.
+* **Weaviate**: Open-source AI-native vector database.
+* **Groq**: API for accessing large language models with high inference speed.
+* **Sentence Transformers**: Python framework for state-of-the-art sentence, text, and image embeddings.
+* **PyMuPDF (Fitz)**: Python binding for MuPDF, a lightweight PDF, XPS, and E-book viewer, renderer, and toolkit.
+* **Pydantic**: Data validation and settings management using Python type annotations.
+* **Uvicorn**: ASGI server for running FastAPI applications.
+* **python-dotenv**: Reads key-value pairs from a `.env` file and sets them as environment variables.
+* **UUID**: For generating unique session and document instance IDs.
+
+## Setup and Installation
+
+1.  **Clone the Repository**:
+    ```bash
+    git clone <https://github.com/Nuwanga-Wijamuni/RAG_IEEE.git>
+    cd <rag-pipeline>
+    ```
+
+2.  **Create a Virtual Environment**:
+    ```bash
+    python -m venv venv
+    source venv/bin/activate  # On Windows: venv\Scripts\activate
+    ```
+
+3.  **Install Dependencies**:
+    Create a `requirements.txt` file with the following content (or add any other specific versions you used):
+    ```txt
+    fastapi
+    uvicorn[standard]
+    weaviate-client>=4.0.0 # Ensure you have a version compatible with the script
+    groq
+    sentence-transformers
+    PyMuPDF
+    python-dotenv
+    pydantic
+    ```
+    Then install them:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+4.  **Set up Environment Variables**:
+    Create a `.env` file in the root directory of the project:
+    ```env
+    WEAVIATE_URL="your_weaviate_cluster_url"
+    WEAVIATE_API_KEY="your_weaviate_api_key"
+    GROQ_API_KEY="your_groq_api_key"
+    ```
+    Replace the placeholder values with your actual Weaviate cluster URL, Weaviate API key, and Groq API key.
+
+5.  **Weaviate Schema**:
+    The application will attempt to create the necessary "Document" collection in Weaviate on startup if it doesn't exist. The schema includes fields for `session_id`, `document_uuid`, `filename`, `text`, and `chunk_index`.
+
+## Running the Application
+
+Once the setup is complete, you can run the FastAPI application using Uvicorn:
+
+```bash
+uvicorn RAGpipline:app --host 127.0.0.1 --port 8000 --reload
